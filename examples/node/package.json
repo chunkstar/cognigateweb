@@ -1,0 +1,19 @@
+{
+  "name": "cognigate-node-examples",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "basic": "tsx basic.ts",
+    "budget": "tsx budget-demo.ts",
+    "streaming": "tsx streaming.ts",
+    "cache": "tsx cache-demo.ts"
+  },
+  "dependencies": {
+    "cognigate": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

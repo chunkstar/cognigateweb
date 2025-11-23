@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cognigate - AI Gateway with Budget Protection. Never get surprised by AI bills again.">
+    <meta name="keywords" content="AI, LLM, OpenAI, Anthropic, Google Gemini, Budget, Gateway, Cost Control">
+    <title>Cognigate - AI Gateway with Budget Protection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Modern color palette */
+            --primary: #06b6d4;
+            --primary-light: #22d3ee;
+            --primary-dark: #0891b2;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0a0a0a;
+            --dark-2: #111111;
+            --dark-3: #1a1a1a;
+            --dark-4: #232323;
+            --gray-50: #fafafa;
+            --gray-100: #f4f4f5;
+            --gray-200: #e4e4e7;
+            --gray-300: #d4d4d8;
+            --gray-600: #52525b;
+            --gray-700: #3f3f46;
+            --gray-800: #27272a;
+            --gray-900: #18181b;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        code, pre {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+        }
+
+        /* Animated gradient background */
+        .gradient-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            animation: gradientMove 20s ease infinite;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(180deg); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 2rem 10rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.125rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(6, 182, 212, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section */
+        section {
+            padding: 8rem 0;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-top: -2rem;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--dark-2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            position: relative;
+        }
+
+        .stat-item h3 {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 60px -15px rgba(6, 182, 212, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Code Section */
+        .code-section {
+            background: var(--dark-2);
+        }
+
+        .code-section .container {
+            max-width: 1600px;
+        }
+
+        .code-block {
+            background: var(--dark-3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 3rem;
+            overflow-x: auto;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(6, 182, 212, 0.05), transparent);
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #e5e7eb;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+        .code-const { color: #4fc1ff; }
+
+        /* Providers */
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .provider-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .provider-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .provider-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .provider-card strong {
+            display: block;
+            margin-top: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .provider-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            background: var(--dark-2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 4rem 0 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .code-block {
+                padding: 1.5rem;
+                max-width: 100%;
+            }
+
+            .code-block pre {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered animation delays */
+        .fade-in-up:nth-child(1) { transition-delay: 0ms; }
+        .fade-in-up:nth-child(2) { transition-delay: 100ms; }
+        .fade-in-up:nth-child(3) { transition-delay: 200ms; }
+        .fade-in-up:nth-child(4) { transition-delay: 300ms; }
+        .fade-in-up:nth-child(5) { transition-delay: 400ms; }
+        .fade-in-up:nth-child(6) { transition-delay: 500ms; }
+
+        /* Parallax layers */
+        .parallax-layer {
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Glow effect */
+        .glow {
+            position: relative;
+        }
+
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+            filter: blur(40px);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .glow:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>⚡</span>
+                <span>Cognigate</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#quickstart">Quick Start</a></li>
+                <li><a href="#providers">Providers</a></li>
+                <li><a href="https://github.com/yourusername/cognigate" target="_blank">GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero gradient-bg">
+        <div class="container">
+            <h1 class="fade-in-up">
+                Never Get Surprised by<br>
+                <span class="gradient-text">AI Bills Again</span>
+            </h1>
+            <p class="fade-in-up">
+                Production-ready AI gateway with bulletproof budget protection, intelligent caching, and multi-provider support. Ship AI features with confidence.
+            </p>
+            <div class="cta-buttons fade-in-up">
+                <a href="#quickstart" class="btn btn-primary glow">Get Started →</a>
+                <a href="https://github.com/yourusername/cognigate" class="btn btn-secondary" target="_blank">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in-up">
+                    <h3 class="counter" data-target="6">0</h3>
+                    <p>AI Models</p>
+                </div>
+                <div class="stat-item fade-in-up">
+                    <h3 class="counter" data-target="40" data-suffix="%+">0</h3>
+                    <p>Cost Reduction</p>
+                </div>
+                <div class="stat-item fade-in-up">
+                    <h3 class="counter" data-target="296">0</h3>
+                    <p>Tests Passing</p>
+                </div>
+                <div class="stat-item fade-in-up">
+                    <h3 class="counter" data-target="100" data-suffix="%">0</h3>
+                    <p>TypeScript</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="gradient-bg">
+        <div class="container">
+            <h2 class="section-title">Built for Production</h2>
+            <p class="section-subtitle">Everything you need to ship AI features safely</p>
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">💰</div>
+                    <h3>Budget Protection</h3>
+                    <p>Set hard daily limits. Automatic enforcement. Never overspend. Fallback to free local models when budget exceeded.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Semantic Caching</h3>
+                    <p>Save 40%+ with AI-powered cache. Similar questions get cached responses using cosine similarity matching.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Multi-Provider</h3>
+                    <p>Single API for OpenAI, Anthropic, Google Gemini, and local models. Switch providers without changing code.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">📦</div>
+                    <h3>Prompt Compression</h3>
+                    <p>Reduce tokens by 40% automatically. Three compression levels. Lower costs without losing meaning.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🎙️</div>
+                    <h3>Voice Interface</h3>
+                    <p>Built-in speech-to-speech. Web Speech API integration. Create voice assistants in minutes.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Webhook Alerts</h3>
+                    <p>Real-time notifications to Slack, Discord. Budget threshold alerts at 50%, 80%, 100%.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section id="quickstart" class="code-section">
+        <div class="container">
+            <h2 class="section-title">Quick Start</h2>
+            <p class="section-subtitle">Get up and running in under 5 minutes</p>
+            <div class="code-block">
+                <pre><code><span class="code-comment">// Install via npm</span>
+npm install cognigate
+
+<span class="code-comment">// Create gateway with all features enabled</span>
+<span class="code-keyword">import</span> { <span class="code-const">createGateway</span> } <span class="code-keyword">from</span> <span class="code-string">'cognigate'</span>;
+
+<span class="code-keyword">const</span> <span class="code-const">ai</span> = <span class="code-function">createGateway</span>({
+  <span class="code-const">dailyBudget</span>: <span class="code-number">10.00</span>,           <span class="code-comment">// $10 daily limit</span>
+  <span class="code-const">cacheEnabled</span>: <span class="code-keyword">true</span>,          <span class="code-comment">// Save money with caching</span>
+  <span class="code-const">semanticCaching</span>: <span class="code-keyword">true</span>,      <span class="code-comment">// Match similar prompts</span>
+  <span class="code-const">compressionLevel</span>: <span class="code-string">'high'</span>,    <span class="code-comment">// 40% token reduction</span>
+  <span class="code-const">cloudProviders</span>: {
+    <span class="code-const">openai</span>: {
+      <span class="code-const">apiKey</span>: process.env.<span class="code-const">OPENAI_API_KEY</span>
+    },
+    <span class="code-const">google</span>: {
+      <span class="code-const">apiKey</span>: process.env.<span class="code-const">GOOGLE_API_KEY</span>
+    }
+  },
+  <span class="code-const">localFallback</span>: {
+    <span class="code-const">enabled</span>: <span class="code-keyword">true</span>,           <span class="code-comment">// Free fallback to Ollama</span>
+    <span class="code-const">providers</span>: [<span class="code-string">'ollama'</span>]
+  },
+  <span class="code-const">webhooks</span>: {
+    <span class="code-const">slack</span>: process.env.<span class="code-const">SLACK_WEBHOOK</span>  <span class="code-comment">// Get budget alerts</span>
+  }
+});
+
+<span class="code-comment">// Use it!</span>
+<span class="code-keyword">const</span> <span class="code-const">answer</span> = <span class="code-keyword">await</span> ai.<span class="code-function">complete</span>(<span class="code-string">'Explain TypeScript in one sentence'</span>);
+<span class="code-function">console</span>.<span class="code-function">log</span>(answer);
+
+<span class="code-comment">// Track spending in real-time</span>
+<span class="code-keyword">const</span> <span class="code-const">status</span> = ai.<span class="code-function">getBudgetStatus</span>();
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">`Spent: $${status.used.toFixed(4)}`</span>);
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">`Remaining: $${status.remaining.toFixed(2)}`</span>);
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Providers Section -->
+    <section id="providers" class="gradient-bg">
+        <div class="container">
+            <h2 class="section-title">All Your Favorite Providers</h2>
+            <p class="section-subtitle">One unified API. Three premium providers + free local fallback.</p>
+            <div class="providers-grid">
+                <div class="provider-card fade-in-up">
+                    <div class="icon">🤖</div>
+                    <strong>OpenAI</strong>
+                    <p>GPT-4, GPT-4-Turbo</p>
+                </div>
+                <div class="provider-card fade-in-up">
+                    <div class="icon">🧠</div>
+                    <strong>Anthropic</strong>
+                    <p>Claude 3.5 Sonnet</p>
+                </div>
+                <div class="provider-card fade-in-up">
+                    <div class="icon">✨</div>
+                    <strong>Google</strong>
+                    <p>Gemini 2.5 Flash</p>
+                </div>
+                <div class="provider-card fade-in-up" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%); border-color: rgba(6, 182, 212, 0.2);">
+                    <div class="icon">🆓</div>
+                    <strong>Local Models</strong>
+                    <p>Ollama • LM Studio • WebLLM</p>
+                    <p style="margin-top: 0.5rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">100% Free Fallback</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Perfect For</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
+                    <h3>🚀 Startups</h3>
+                    <p>Ship AI features without fear of runaway costs. Set budgets, get alerts, sleep well at night.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <h3>🧪 Prototyping</h3>
+                    <p>Try different models and providers. Switch instantly. Find what works best for your use case.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <h3>📊 Production</h3>
+                    <p>Battle-tested. 296 passing tests. TypeScript strict mode. Production monitoring built-in.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Ship AI Features?</h2>
+            <p>Join developers building with confidence</p>
+            <div class="cta-buttons">
+                <a href="https://www.npmjs.com/package/cognigate" class="btn btn-primary glow" target="_blank">Install via npm</a>
+                <a href="https://github.com/yourusername/cognigate" class="btn btn-secondary" target="_blank">View Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 1rem;">&copy; 2025 Cognigate. Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</p>
+            <p style="color: var(--text-secondary);">Built by developers who refuse to get surprised by AI bills.</p>
+            <p style="margin-top: 1.5rem;">
+                <a href="https://github.com/yourusername/cognigate" target="_blank">GitHub</a> •
+                <a href="https://www.npmjs.com/package/cognigate" target="_blank">npm</a> •
+                <a href="https://github.com/yourusername/cognigate/issues" target="_blank">Issues</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations with staggered delays
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Trigger counter animation if it's a counter element
+                    if (entry.target.querySelector('.counter')) {
+                        const counters = entry.target.querySelectorAll('.counter');
+                        counters.forEach(counter => {
+                            if (!counter.classList.contains('counted')) {
+                                animateCounter(counter);
+                            }
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add visible class to hero elements immediately
+        document.querySelectorAll('.hero .fade-in-up').forEach(el => {
+            el.classList.add('visible');
+        });
+
+        // Number counter animation
+        function animateCounter(element) {
+            element.classList.add('counted');
+            const target = parseInt(element.getAttribute('data-target'));
+            const suffix = element.getAttribute('data-suffix') || '';
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = Math.floor(current) + suffix;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target + suffix;
+                }
+            };
+
+            updateCounter();
+        }
+
+        // Parallax scroll effect
+        let ticking = false;
+        let lastScrollY = window.scrollY;
+
+        function updateParallax() {
+            const scrolled = window.scrollY;
+
+            // Update all gradient backgrounds with parallax
+            document.querySelectorAll('.gradient-bg::before, .gradient-bg').forEach((element, index) => {
+                // Different parallax speeds for variety
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+
+                if (element.classList.contains('gradient-bg')) {
+                    const bgElement = element.querySelector('::before') || element;
+                    // We can't directly select ::before, so we transform the parent
+                    element.style.transform = `translateY(${yPos * 0.3}px)`;
+                }
+            });
+
+            // Parallax for hero background
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const heroScroll = scrolled * 0.5;
+                hero.style.transform = `translateY(${heroScroll * 0.3}px)`;
+            }
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            lastScrollY = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateParallax();
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial parallax position
+        updateParallax();
+
+        // Observe stats section separately for counter animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        if (!counter.classList.contains('counted')) {
+                            animateCounter(counter);
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

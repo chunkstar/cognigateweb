@@ -1,0 +1,45 @@
+# Source files
+src/
+tests/
+examples/
+
+# Configuration
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+.eslintrc.json
+
+# Development
+node_modules/
+.vscode/
+.idea/
+*.log
+*.tmp
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Documentation (keep README.md)
+docs/
+SPRINT_*.md
+ARCHITECTURE.md
+IMPLEMENTATION_GUIDE.md
+CONTRIBUTING.md
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Build artifacts (keep dist/)
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db

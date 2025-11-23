@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognigate - Voice Mode Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .container {
+      text-align: center;
+      color: white;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    .mic-button {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 4px solid white;
+      font-size: 80px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px auto;
+    }
+    .mic-button:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .mic-button.listening {
+      animation: pulse 1.5s infinite;
+      background: rgba(255, 100, 100, 0.5);
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    .status {
+      font-size: 1.5em;
+      margin-top: 20px;
+      min-height: 40px;
+    }
+    .transcript {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      min-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎤 Voice AI Chat</h1>
+    <div class="mic-button" id="micBtn" onclick="toggleVoice()">🎤</div>
+    <div class="status" id="status">Click the microphone to start</div>
+    <div class="transcript" id="transcript">
+      <p><em>Your conversation will appear here...</em></p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createGateway } from 'https://cdn.jsdelivr.net/npm/cognigate@4.0.0/dist/index.mjs';
+    import { VoiceMode } from 'https://cdn.jsdelivr.net/npm/cognigate@4.0.0/dist/voice/voice-chat.mjs';
+
+    // Create gateway with local fallback (free!)
+    const ai = createGateway({
+      dailyBudget: 0,
+      localFallback: { enabled: true }
+    });
+
+    // Create voice mode
+    const voice = new VoiceMode(ai, {
+      lang: 'en-US',
+      autoSpeak: true,
+      continuous: true
+    });
+
+    let isListening = false;
+
+    window.toggleVoice = function() {
+      const btn = document.getElementById('micBtn');
+      const status = document.getElementById('status');
+
+      if (isListening) {
+        voice.stopListening();
+        btn.classList.remove('listening');
+        btn.textContent = '🎤';
+        status.textContent = 'Stopped';
+        isListening = false;
+      } else {
+        voice.startListening();
+        btn.classList.add('listening');
+        btn.textContent = '🔴';
+        status.textContent = 'Listening... speak now!';
+        isListening = true;
+      }
+    };
+
+    // Handle voice events
+    let transcriptHtml = '';
+
+    voice.on('result', (text) => {
+      transcriptHtml += `<p><strong>You:</strong> ${text}</p>`;
+      document.getElementById('transcript').innerHTML = transcriptHtml;
+    });
+
+    voice.on('response', (text) => {
+      transcriptHtml += `<p><strong>AI:</strong> ${text}</p>`;
+      document.getElementById('transcript').innerHTML = transcriptHtml;
+
+      // Auto-scroll to bottom
+      const transcript = document.getElementById('transcript');
+      transcript.scrollTop = transcript.scrollHeight;
+    });
+
+    voice.on('error', (error) => {
+      document.getElementById('status').textContent = `Error: ${error.message}`;
+    });
+
+    // Status updates
+    document.getElementById('status').textContent = '✅ Ready! Click to start.';
+  </script>
+</body>
+</html>

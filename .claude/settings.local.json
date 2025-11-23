@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(tree:*)",
+      "SlashCommand(/bmad:bmad-analyst)",
+      "SlashCommand(/bmad:bmad-pm)",
+      "SlashCommand(/bmad:bmad-sm)",
+      "SlashCommand(/bmad:bmad-dev)",
+      "Bash(npm install)",
+      "Bash(npm test)",
+      "Bash(npm test:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run build:*)",
+      "WebSearch",
+      "WebFetch(domain:webllm.mlc.ai)",
+      "Bash(node:*)",
+      "Bash(set GOOGLE_API_KEY=AIzaSyC7Es3osZ_xdRYqE-oiYmlh8zuR8Y1XM3w)",
+      "Bash(dir:*)",
+      "Bash($env:GOOGLE_API_KEY=\"AIzaSyC7Es3osZ_xdRYqE-oiYmlh8zuR8Y1XM3w\")",
+      "Bash(npx serve -l 3000)",
+      "Bash(python -m http.server:*)",
+      "Bash(start docs/index.html)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
