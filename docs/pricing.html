@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cognigate Pricing - Transparent pricing for AI gateway and budget protection. From free to enterprise.">
+    <title>Pricing - Cognigate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Modern color palette */
+            --primary: #06b6d4;
+            --primary-light: #22d3ee;
+            --primary-dark: #0891b2;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0a0a0a;
+            --dark-2: #111111;
+            --dark-3: #1a1a1a;
+            --dark-4: #232323;
+            --gray-50: #fafafa;
+            --gray-100: #f4f4f5;
+            --gray-200: #e4e4e7;
+            --gray-300: #d4d4d8;
+            --gray-600: #52525b;
+            --gray-700: #3f3f46;
+            --gray-800: #27272a;
+            --gray-900: #18181b;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        .gradient-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            animation: gradientMove 20s ease infinite;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(180deg); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .pricing-hero {
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .pricing-hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        /* Billing Toggle */
+        .billing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .toggle-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .toggle-label.active {
+            color: var(--primary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 11px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(28px);
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+
+        /* Pricing Card */
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 60px -15px rgba(6, 182, 212, 0.3);
+        }
+
+        .pricing-card:hover::before {
+            opacity: 1;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid rgba(6, 182, 212, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.02) translateY(-8px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            min-height: 42px;
+        }
+
+        .price-container {
+            margin-bottom: 2rem;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .price-currency {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-left: 0.25rem;
+        }
+
+        .annual-price {
+            display: none;
+            font-size: 0.875rem;
+            color: var(--secondary);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .annual-price.show {
+            display: block;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .check-icon {
+            color: var(--secondary);
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 1.125rem;
+        }
+
+        .features-list li strong {
+            color: var(--text-primary);
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(6, 182, 212, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 6rem 0;
+            background: var(--dark-2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: -0.02em;
+        }
+
+        .comparison-wrapper {
+            overflow-x: auto;
+            border-radius: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .comparison-table thead th {
+            background: rgba(6, 182, 212, 0.05);
+            font-weight: 700;
+            color: var(--text-primary);
+            position: sticky;
+            top: 0;
+        }
+
+        .comparison-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .comparison-table tbody td {
+            color: var(--text-secondary);
+        }
+
+        .check {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .cross {
+            color: var(--gray-600);
+            font-weight: 700;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+
+        .faq-question {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-answer {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .faq-answer strong {
+            color: var(--text-primary);
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            padding: 6rem 0;
+            text-align: center;
+            background: var(--dark-2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-cta p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .footer-cta .btn {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .pricing-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pricing-hero h1 {
+                font-size: 2rem;
+            }
+
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">⚡ Cognigate</a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="index.html#providers">Providers</a></li>
+                <li><a href="https://github.com/yourusername/cognigate">Docs</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pricing-hero">
+        <div class="container">
+            <h1>Simple, <span class="gradient-text">Transparent Pricing</span></h1>
+            <p>Track AI costs, set budgets, never overspend</p>
+
+            <!-- Billing Toggle -->
+            <div class="billing-toggle">
+                <span class="toggle-label" id="monthlyLabel">Monthly</span>
+                <div class="toggle-switch" id="billingToggle">
+                    <div class="toggle-slider"></div>
+                </div>
+                <span class="toggle-label" id="annualLabel">
+                    Annual <span class="savings-badge">Save 20%</span>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Grid -->
+    <section>
+        <div class="container">
+            <div class="pricing-grid">
+                <!-- Free Tier -->
+                <div class="pricing-card">
+                    <div class="plan-name">Free</div>
+                    <div class="plan-description">Perfect for trying out Cognigate</div>
+
+                    <div class="price-container">
+                        <div class="price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">0</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                    </div>
+
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> <span>Track up to 1,000 requests/month</span></li>
+                        <li><span class="check-icon">✓</span> <span>All AI providers (OpenAI, Anthropic, Google)</span></li>
+                        <li><span class="check-icon">✓</span> <span>Basic analytics dashboard</span></li>
+                        <li><span class="check-icon">✓</span> <span>Local fallback (Ollama, LM Studio)</span></li>
+                        <li><span class="check-icon">✓</span> <span>Budget alerts</span></li>
+                        <li><span class="check-icon">✓</span> <span>7-day data retention</span></li>
+                    </ul>
+
+                    <button class="btn btn-secondary">Get Started Free</button>
+                </div>
+
+                <!-- Indie Tier -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-name">Indie</div>
+                    <div class="plan-description">For indie hackers & solo developers</div>
+
+                    <div class="price-container">
+                        <div class="price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount" data-monthly="29" data-annual="23">29</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="annual-price">
+                            $278/year (save $70)
+                        </div>
+                    </div>
+
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> <span><strong>Unlimited requests</strong></span></li>
+                        <li><span class="check-icon">✓</span> <span>All AI providers + voice mode</span></li>
+                        <li><span class="check-icon">✓</span> <span>Advanced analytics & insights</span></li>
+                        <li><span class="check-icon">✓</span> <span>Budget controls & auto-limits</span></li>
+                        <li><span class="check-icon">✓</span> <span>90-day data retention</span></li>
+                        <li><span class="check-icon">✓</span> <span>Email support</span></li>
+                        <li><span class="check-icon">✓</span> <span>Export data (CSV, JSON)</span></li>
+                    </ul>
+
+                    <button class="btn btn-primary">Start Free Trial</button>
+                </div>
+
+                <!-- Platform Tier -->
+                <div class="pricing-card">
+                    <div class="plan-name">Platform</div>
+                    <div class="plan-description">Track AI costs per end-user in your app</div>
+
+                    <div class="price-container">
+                        <div class="price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount" data-monthly="149" data-annual="119">149</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="annual-price">
+                            $1,430/year (save $358)
+                        </div>
+                    </div>
+
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> <span><strong>Everything in Indie, plus:</strong></span></li>
+                        <li><span class="check-icon">✓</span> <span><strong>Track up to 1,000 end-users</strong></span></li>
+                        <li><span class="check-icon">✓</span> <span>Per-user cost tracking</span></li>
+                        <li><span class="check-icon">✓</span> <span>Tier-based limits (free/pro/premium)</span></li>
+                        <li><span class="check-icon">✓</span> <span>Auto-upgrade prompts</span></li>
+                        <li><span class="check-icon">✓</span> <span>Webhooks & API access</span></li>
+                        <li><span class="check-icon">✓</span> <span>White-label dashboard</span></li>
+                        <li><span class="check-icon">✓</span> <span>Priority support</span></li>
+                        <li><span class="check-icon">✓</span> <span>+ $0.10/user over 1,000</span></li>
+                    </ul>
+
+                    <button class="btn btn-primary">Start Free Trial</button>
+                </div>
+
+                <!-- Pro/Enterprise Tier -->
+                <div class="pricing-card">
+                    <div class="plan-name">Pro</div>
+                    <div class="plan-description">For teams & high-volume apps</div>
+
+                    <div class="price-container">
+                        <div class="price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount" data-monthly="199" data-annual="159">199</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <div class="annual-price">
+                            $1,910/year (save $478)
+                        </div>
+                    </div>
+
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> <span><strong>Everything in Platform, plus:</strong></span></li>
+                        <li><span class="check-icon">✓</span> <span><strong>Unlimited end-users</strong></span></li>
+                        <li><span class="check-icon">✓</span> <span>Team collaboration (5 seats)</span></li>
+                        <li><span class="check-icon">✓</span> <span>SAML SSO</span></li>
+                        <li><span class="check-icon">✓</span> <span>Advanced RBAC</span></li>
+                        <li><span class="check-icon">✓</span> <span>Audit logs</span></li>
+                        <li><span class="check-icon">✓</span> <span>99.9% SLA</span></li>
+                        <li><span class="check-icon">✓</span> <span>Dedicated Slack channel</span></li>
+                        <li><span class="check-icon">✓</span> <span>Custom contracts</span></li>
+                    </ul>
+
+                    <button class="btn btn-secondary">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+        <div class="container">
+            <h2 class="section-title">Feature Comparison</h2>
+            <div class="comparison-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free</th>
+                            <th>Indie</th>
+                            <th>Platform</th>
+                            <th>Pro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monthly requests</td>
+                            <td>1,000</td>
+                            <td>Unlimited</td>
+                            <td>Unlimited</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>AI providers</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Local fallback (Ollama)</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Budget alerts</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Voice mode</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Data retention</td>
+                            <td>7 days</td>
+                            <td>90 days</td>
+                            <td>90 days</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>Data export</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>End-user tracking</strong></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td>1,000 users</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Per-user limits</strong></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tier management</strong></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Upgrade prompts</strong></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Webhooks</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>White-label dashboard</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Team collaboration</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td>5 seats</td>
+                        </tr>
+                        <tr>
+                            <td>SAML SSO</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>SLA</td>
+                            <td>Best effort</td>
+                            <td>Best effort</td>
+                            <td>99%</td>
+                            <td>99.9%</td>
+                        </tr>
+                        <tr>
+                            <td>Support</td>
+                            <td>Community</td>
+                            <td>Email</td>
+                            <td>Priority</td>
+                            <td>Dedicated Slack</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">What's the difference between Indie and Platform tiers?</div>
+                    <div class="faq-answer">
+                        <strong>Indie</strong> is for developers tracking their own AI costs across projects.
+                        <strong>Platform</strong> is for developers building AI products (chatbots, SaaS) who need to track costs PER END-USER and set tier-based limits (free users get 10 msgs/day, pro users get unlimited).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What counts as an "end-user" in Platform tier?</div>
+                    <div class="faq-answer">
+                        An end-user is someone using YOUR application that makes AI requests through Cognigate. For example, if you built an AI chatbot with 500 users, those 500 users would each count as one end-user. The Platform tier includes 1,000 end-users, then $0.10/user/month after that.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to migrate my API keys to Cognigate?</div>
+                    <div class="faq-answer">
+                        No! Cognigate is a proxy - you keep using your own API keys. We just route requests through our system to track usage, enforce limits, and provide analytics. Your keys stay secure and never leave your control.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What happens if I hit my budget limit?</div>
+                    <div class="faq-answer">
+                        You set a daily budget (e.g., $50/day). When you hit 80%, you get an email alert. At 100%, Cognigate automatically stops routing requests to prevent overages. You can also set it to fallback to local models (Ollama) instead of stopping entirely.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I try Platform tier before paying?</div>
+                    <div class="faq-answer">
+                        Yes! All paid tiers include a 14-day free trial. No credit card required. You can test per-user tracking, tier limits, and all features before committing.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How does the 20% annual discount work?</div>
+                    <div class="faq-answer">
+                        Pay annually and save 20%. For example: Indie is $29/mo ($348/year) or $278/year if paid annually. That's $70 in savings! You can switch between monthly and annual at any time.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta">
+        <div class="container">
+            <h2>Ready to <span class="gradient-text">get started</span>?</h2>
+            <p>Join developers who never worry about AI costs</p>
+            <button class="btn btn-primary">Start Free Trial</button>
+        </div>
+    </section>
+
+    <script>
+        const billingToggle = document.getElementById('billingToggle');
+        const monthlyLabel = document.getElementById('monthlyLabel');
+        const annualLabel = document.getElementById('annualLabel');
+        const priceAmounts = document.querySelectorAll('.price-amount');
+        const annualPrices = document.querySelectorAll('.annual-price');
+
+        billingToggle.addEventListener('click', () => {
+            billingToggle.classList.toggle('active');
+            const isAnnual = billingToggle.classList.contains('active');
+
+            // Toggle label active state
+            monthlyLabel.classList.toggle('active', !isAnnual);
+            annualLabel.classList.toggle('active', isAnnual);
+
+            // Show/hide annual pricing text
+            annualPrices.forEach(price => {
+                price.classList.toggle('show', isAnnual);
+            });
+
+            // Update price amounts
+            priceAmounts.forEach(amount => {
+                const monthly = amount.dataset.monthly;
+                const annual = amount.dataset.annual;
+                if (monthly && annual) {
+                    amount.textContent = isAnnual ? annual : monthly;
+                }
+            });
+        });
+
+        // Handle button clicks
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                if (button.textContent.includes('Contact Sales')) {
+                    alert('Coming soon! Contact: sales@cognigate.dev');
+                } else {
+                    alert('Coming soon! Sign-up launches in December 2025.\n\nWant early access? Email: hello@cognigate.dev');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
