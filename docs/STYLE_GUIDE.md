@@ -431,19 +431,22 @@ header {
 ### Official Logo
 The Cognigate logo features:
 - **Clear sphere** with gradient (cyan to emerald to purple)
-- **High-contrast neural brain** above representing AI intelligence
-  - Vibrant lighter colors (#22d3ee cyan-light, #34d399 emerald-light)
+- **"AI" text in background** at 30% opacity behind the brain
+- **Organic brain structure** representing AI intelligence
+  - Two distinct hemispheres (left and right brain)
+  - Corpus callosum (center connection between hemispheres)
+  - Three-color neural nodes: cyan (#22d3ee), emerald (#34d399), purple (#8b5cf6)
+  - Purple accent nodes (#a78bfa) at connection points
+  - Purple connection lines (#8b5cf6) showing cross-hemisphere communication
+  - Brain outline at 40% opacity for organic appearance
   - Original node size (1.5px radius in logo, 2px in favicon)
-  - Full opacity (100%) on connection lines for maximum visibility
-  - Clean, simple design without drop-shadows
-  - Brain outline at 30-40% opacity for subtle background
+  - Full opacity (100%) on all connection lines
 - **Modern bold gate** below representing gateway/control
   - Wider posts (5px in logo, 6px in favicon)
   - Thicker horizontal bars (3px in logo, 4px in favicon)
   - Bold top arch (3.5px in logo, 4.5px in favicon)
   - Minimal border radius for modern geometric look
   - Full opacity for maximum impact
-- **Faded "AI" text** in the center (25-30% opacity)
 
 ### Logo Files
 - `logo.svg` - 48x48px logo for navigation (32px display size)
