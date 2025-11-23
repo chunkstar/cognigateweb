@@ -426,6 +426,35 @@ header {
 
 ---
 
+## 🎨 Logo
+
+### Official Logo
+The Cognigate logo features:
+- **Clear sphere** with gradient (cyan to emerald to purple)
+- **Neural brain** above representing AI intelligence
+- **Gate structure** below representing gateway/control
+- **Faded "AI" text** in the center
+
+### Logo Files
+- `logo.svg` - 48x48px logo for navigation (32px display size)
+- `favicon.svg` - 64x64px logo for browser favicon
+
+### Logo Usage
+```html
+<!-- Navigation logo -->
+<img src="logo.svg" alt="Cognigate Logo" width="32" height="32"
+     style="filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.3));">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+```
+
+### Logo Guidelines
+- **DO** use the cyan drop-shadow for glow effect
+- **DO** maintain aspect ratio (always square)
+- **DON'T** change the colors (cyan/emerald gradient is brand)
+- **DON'T** use on light backgrounds (designed for dark theme)
+
 ## 🎨 Icon System
 
 - **Size**: 3rem (48px) for feature icons
