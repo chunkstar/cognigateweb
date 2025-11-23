@@ -3,7 +3,7 @@
 **A unified AI gateway with budget controls, local fallback, and voice mode.**
 
 [![npm version](https://badge.fury.io/js/cognigate.svg)](https://www.npmjs.com/package/cognigate)
-[![Tests](https://github.com/yourusername/cognigate/workflows/tests/badge.svg)](https://github.com/yourusername/cognigate/actions)
+[![Tests](https://github.com/chunkstar/cognigateweb/workflows/tests/badge.svg)](https://github.com/chunkstar/cognigateweb/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
@@ -54,6 +54,58 @@ console.log(answer);
 const status = ai.getBudgetStatus();
 console.log(`Used: $${status.used.toFixed(2)} / $${status.dailyLimit}`);
 ```
+
+---
+
+## 📊 Dashboard & Monitoring
+
+Cognigate provides **three ways** to monitor your AI spending:
+
+### 1. Web Dashboard (Hosted)
+Visit the live dashboard at **[cognigate.dev/dashboard.html](https://cognigate.dev/dashboard.html)**
+
+Features:
+- Real-time budget tracking
+- Cost charts and provider breakdown
+- Request history
+- Alert notifications
+- No installation required!
+
+### 2. React Dashboard (Self-Hosted)
+Build your own custom dashboard with our React example:
+
+```bash
+cd examples/react-dashboard
+npm install
+npm run dev
+```
+
+Features:
+- Next.js 14 + TypeScript + Tailwind
+- Customizable components
+- Chart.js visualizations
+- Full source code included
+
+### 3. REST API (For Custom Integrations)
+
+Enable the API server to access metrics programmatically:
+
+```typescript
+import { createGateway } from 'cognigate';
+import { createApiServer } from 'cognigate/api';
+
+const gateway = createGateway({ budget: { dailyLimit: 10 } });
+const api = createApiServer(gateway, { port: 3001 });
+await api.start();
+
+// Available endpoints:
+// GET /api/budget      - Budget status
+// GET /api/usage       - Usage statistics
+// GET /api/providers   - Provider breakdown
+// GET /api/health      - Health check
+```
+
+See `examples/api-server.ts` for a complete example.
 
 ---
 

@@ -16,6 +16,11 @@
       "import": "./dist/voice/voice-chat.mjs",
       "require": "./dist/voice/voice-chat.cjs",
       "types": "./dist/voice/voice-chat.d.ts"
+    },
+    "./api": {
+      "import": "./dist/api/index.mjs",
+      "require": "./dist/api/index.cjs",
+      "types": "./dist/api/index.d.ts"
     }
   },
   "files": [
