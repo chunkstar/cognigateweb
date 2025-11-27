@@ -242,7 +242,7 @@ describe('GoogleProvider', () => {
 
       // Verify URL contains API key
       expect(url).toContain('key=test-key');
-      expect(url).toContain('gemini-1.5-flash'); // Default model
+      expect(url).toContain('gemini-2.5-flash'); // Default model
       expect(url).toContain('generateContent');
 
       // Verify request body

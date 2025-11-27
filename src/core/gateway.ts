@@ -8,6 +8,10 @@ import { ConfigurationError, ProviderUnavailableError } from '../utils/errors.js
 import { OpenAIProvider } from '../providers/cloud/openai.js';
 import { AnthropicProvider } from '../providers/cloud/anthropic.js';
 import { GoogleProvider } from '../providers/cloud/google.js';
+import { XAIProvider } from '../providers/cloud/xai.js';
+import { DeepSeekProvider } from '../providers/cloud/deepseek.js';
+import { MistralProvider } from '../providers/cloud/mistral.js';
+import { TogetherProvider } from '../providers/cloud/together.js';
 import { OllamaProvider } from '../providers/local/ollama.js';
 import { LMStudioProvider } from '../providers/local/lmstudio.js';
 import { WebLLMProvider } from '../providers/local/webllm.js';
@@ -77,6 +81,22 @@ export class Gateway {
 
     if (this.config.cloudProviders.google) {
       this.providers.push(new GoogleProvider(this.config.cloudProviders.google));
+    }
+
+    if (this.config.cloudProviders.xai) {
+      this.providers.push(new XAIProvider(this.config.cloudProviders.xai));
+    }
+
+    if (this.config.cloudProviders.deepseek) {
+      this.providers.push(new DeepSeekProvider(this.config.cloudProviders.deepseek));
+    }
+
+    if (this.config.cloudProviders.mistral) {
+      this.providers.push(new MistralProvider(this.config.cloudProviders.mistral));
+    }
+
+    if (this.config.cloudProviders.together) {
+      this.providers.push(new TogetherProvider(this.config.cloudProviders.together));
     }
 
     // Initialize local fallback providers

@@ -204,6 +204,46 @@ export interface CloudProvidersConfig {
    * @see https://ai.google.dev/docs
    */
   google?: ProviderConfig;
+
+  /**
+   * xAI (Grok) configuration
+   *
+   * Provider for Grok models with industry-leading 2M token context windows.
+   * New users get $25 free API credits monthly.
+   *
+   * @see https://x.ai/api
+   */
+  xai?: ProviderConfig;
+
+  /**
+   * DeepSeek configuration
+   *
+   * Provider for DeepSeek models - frontier quality at breakthrough prices.
+   * One of the most cost-effective AI providers.
+   *
+   * @see https://platform.deepseek.com/docs
+   */
+  deepseek?: ProviderConfig;
+
+  /**
+   * Mistral AI configuration
+   *
+   * European AI provider with excellent multilingual support.
+   * Includes specialized models like Mathstral for mathematical reasoning.
+   *
+   * @see https://docs.mistral.ai
+   */
+  mistral?: ProviderConfig;
+
+  /**
+   * Together AI configuration
+   *
+   * Access to 200+ open-source models through a single API.
+   * Great for experimentation and finding the perfect model.
+   *
+   * @see https://docs.together.ai
+   */
+  together?: ProviderConfig;
 }
 
 /**
