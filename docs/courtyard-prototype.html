@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognigate Courtyard - Prototype</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Courtyard Container */
+    .courtyard {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Wing Sections */
+    .wing {
+      margin-bottom: 2rem;
+    }
+
+    .wing-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+      border-left: 3px solid #667eea;
+    }
+
+    .offices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Office Cards */
+    .office {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .office::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--office-color, #667eea), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .office:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.1);
+      border-color: var(--office-color, #667eea);
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+    }
+
+    .office:hover::before {
+      opacity: 1;
+    }
+
+    .office.configured {
+      border-color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+    }
+
+    .office.configured::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #4ade80;
+      color: #000;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .office-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .office-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .office-specialist {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .office-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(102, 126, 234, 0.3);
+      color: #a5b4fc;
+    }
+
+    /* Color coding */
+    .office.cloud { --office-color: #667eea; }
+    .office.local { --office-color: #4ade80; }
+    .office.support { --office-color: #f59e0b; }
+
+    /* Central Area */
+    .central-area {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .fountain {
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    /* Welcome Desk */
+    .welcome-desk {
+      background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
+      border: 2px solid #667eea;
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+
+    .welcome-desk h2 {
+      margin-bottom: 1rem;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #1a1a2e;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .modal-header .office-icon {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .modal-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .modal-close:hover {
+      opacity: 1;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .chat-bubble {
+      background: rgba(102,126,234,0.2);
+      border-radius: 16px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid #667eea;
+    }
+
+    .chat-bubble .specialist-name {
+      font-weight: 600;
+      color: #a5b4fc;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .strength-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.75rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .tag.highlight {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    /* Status Bar */
+    .status-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.9);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+    }
+
+    .status-dot.warning {
+      background: #f59e0b;
+    }
+
+    .status-dot.error {
+      background: #ef4444;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .offices-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .header h1 {
+        font-size: 1.75rem;
+      }
+
+      .central-area {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Cognigate Courtyard</h1>
+    <p>Configure your AI gateway by visiting our specialist offices</p>
+  </header>
+
+  <main class="courtyard">
+    <!-- Welcome Desk -->
+    <div class="welcome-desk">
+      <div class="fountain">⛲</div>
+      <h2>Welcome, Explorer!</h2>
+      <p>I'm your Guide. What would you like to build today?</p>
+      <div class="quick-actions">
+        <button class="btn btn-primary" onclick="quickSetup('chatbot')">Chatbot</button>
+        <button class="btn btn-primary" onclick="quickSetup('coding')">Code Assistant</button>
+        <button class="btn btn-primary" onclick="quickSetup('research')">Research Tool</button>
+        <button class="btn btn-secondary" onclick="closeWelcome()">Explore Myself</button>
+      </div>
+    </div>
+
+    <!-- North Wing - Cloud Providers -->
+    <section class="wing">
+      <h3 class="wing-title">North Wing - Cloud Providers</h3>
+      <div class="offices-grid">
+        <div class="office cloud" onclick="openOffice('openai')" data-office="openai">
+          <span class="office-badge">#1 Creative</span>
+          <div class="office-icon">🤖</div>
+          <div class="office-name">OpenAI</div>
+          <div class="office-specialist">Ada</div>
+        </div>
+        <div class="office cloud" onclick="openOffice('anthropic')" data-office="anthropic">
+          <span class="office-badge">#1 Coding</span>
+          <div class="office-icon">🧠</div>
+          <div class="office-name">Anthropic</div>
+          <div class="office-specialist">Claude</div>
+        </div>
+        <div class="office cloud" onclick="openOffice('google')" data-office="google">
+          <span class="office-badge">#1 Reasoning</span>
+          <div class="office-icon">💎</div>
+          <div class="office-name">Google</div>
+          <div class="office-specialist">Gemma</div>
+        </div>
+        <div class="office cloud" onclick="openOffice('xai')" data-office="xai">
+          <span class="office-badge">2M Context</span>
+          <div class="office-icon">🚀</div>
+          <div class="office-name">xAI</div>
+          <div class="office-specialist">Grok</div>
+        </div>
+        <div class="office cloud" onclick="openOffice('deepseek')" data-office="deepseek">
+          <span class="office-badge">Best Value</span>
+          <div class="office-icon">🔮</div>
+          <div class="office-name">DeepSeek</div>
+          <div class="office-specialist">Deep</div>
+        </div>
+        <div class="office cloud" onclick="openOffice('mistral')" data-office="mistral">
+          <span class="office-badge">Math Expert</span>
+          <div class="office-icon">🌬️</div>
+          <div class="office-name">Mistral</div>
+          <div class="office-specialist">Mira</div>
+        </div>
+        <div class="office cloud" onclick="openOffice('cohere')" data-office="cohere">
+          <span class="office-badge">RAG Expert</span>
+          <div class="office-icon">📚</div>
+          <div class="office-name">Cohere</div>
+          <div class="office-specialist">Coral</div>
+        </div>
+        <div class="office cloud" onclick="openOffice('perplexity')" data-office="perplexity">
+          <span class="office-badge">Live Search</span>
+          <div class="office-icon">🔍</div>
+          <div class="office-name">Perplexity</div>
+          <div class="office-specialist">Percy</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Offices -->
+    <section class="wing">
+      <h3 class="wing-title">Support Services</h3>
+      <div class="offices-grid">
+        <div class="office support configured" onclick="openOffice('budget')" data-office="budget">
+          <div class="office-icon">💰</div>
+          <div class="office-name">Budget</div>
+          <div class="office-specialist">Penny</div>
+        </div>
+        <div class="office support" onclick="openOffice('cache')" data-office="cache">
+          <div class="office-icon">📦</div>
+          <div class="office-name">Cache</div>
+          <div class="office-specialist">Memo</div>
+        </div>
+        <div class="office support" onclick="openOffice('voice')" data-office="voice">
+          <div class="office-icon">🎤</div>
+          <div class="office-name">Voice</div>
+          <div class="office-specialist">Echo</div>
+        </div>
+        <div class="office support" onclick="openOffice('alerts')" data-office="alerts">
+          <div class="office-icon">🔔</div>
+          <div class="office-name">Alerts</div>
+          <div class="office-specialist">Bell</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- South Wing - Local Providers -->
+    <section class="wing">
+      <h3 class="wing-title">South Wing - Local & Free</h3>
+      <div class="offices-grid">
+        <div class="office local" onclick="openOffice('ollama')" data-office="ollama">
+          <span class="office-badge">FREE</span>
+          <div class="office-icon">🦙</div>
+          <div class="office-name">Ollama</div>
+          <div class="office-specialist">Sage</div>
+        </div>
+        <div class="office local" onclick="openOffice('lmstudio')" data-office="lmstudio">
+          <span class="office-badge">macOS</span>
+          <div class="office-icon">🖥️</div>
+          <div class="office-name">LM Studio</div>
+          <div class="office-specialist">Mac</div>
+        </div>
+        <div class="office local" onclick="openOffice('webllm')" data-office="webllm">
+          <span class="office-badge">Browser</span>
+          <div class="office-icon">🌐</div>
+          <div class="office-name">WebLLM</div>
+          <div class="office-specialist">Web</div>
+        </div>
+        <div class="office local" onclick="openOffice('together')" data-office="together">
+          <span class="office-badge">200+ Models</span>
+          <div class="office-icon">🤝</div>
+          <div class="office-name">Together AI</div>
+          <div class="office-specialist">Unity</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <div class="status-item">
+      <span class="status-dot"></span>
+      <span>Budget: $0.00 / $10.00</span>
+    </div>
+    <div class="status-item">
+      <span>Providers: 1 configured</span>
+    </div>
+    <div class="status-item">
+      <button class="btn btn-primary" onclick="launchGateway()">Launch Gateway</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="office-icon" id="modal-icon">🤖</span>
+        <div>
+          <h3 id="modal-title">OpenAI Office</h3>
+          <small id="modal-specialist">Specialist: Ada</small>
+        </div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Office data
+    const offices = {
+      openai: {
+        icon: '🤖',
+        name: 'OpenAI',
+        specialist: 'Ada',
+        greeting: "Hello! I'm Ada. OpenAI offers the most versatile models available. GPT-4o excels at creative writing, coding, and multimodal tasks. How can I help you connect?",
+        strengths: ['Creative Writing', 'Multimodal', 'General Purpose'],
+        models: ['gpt-4o', 'gpt-4o-mini', 'o1-preview'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: 'sk-...' }
+        ]
+      },
+      anthropic: {
+        icon: '🧠',
+        name: 'Anthropic',
+        specialist: 'Claude',
+        greeting: "Hi there! I help you access Claude models - known for exceptional code quality and thoughtful reasoning. Claude 4 leads SWE-bench with 72.5% score. Ready to connect?",
+        strengths: ['Coding #1', 'Reasoning', 'Safety'],
+        models: ['claude-4', 'claude-sonnet-4', 'claude-haiku'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: 'sk-ant-...' }
+        ]
+      },
+      google: {
+        icon: '💎',
+        name: 'Google',
+        specialist: 'Gemma',
+        greeting: "Welcome! Gemini 2.5 Pro dominates reasoning benchmarks with an 86.4 GPQA score. Plus, our 1M token context window lets you analyze entire codebases. Shall we set it up?",
+        strengths: ['Reasoning #1', 'Math', '1M Context'],
+        models: ['gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.0-flash'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: 'AIza...' }
+        ]
+      },
+      xai: {
+        icon: '🚀',
+        name: 'xAI',
+        specialist: 'Grok',
+        greeting: "Hey! I'm Grok. Want AI that thinks different? Our 2M token context and advanced reasoning make Grok 4 perfect for complex tool workflows. Plus, $25 free credits monthly!",
+        strengths: ['2M Context', 'Tool Use', 'Reasoning'],
+        models: ['grok-4', 'grok-4.1-fast'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: 'xai-...' }
+        ]
+      },
+      deepseek: {
+        icon: '🔮',
+        name: 'DeepSeek',
+        specialist: 'Deep',
+        greeting: "Hello! DeepSeek offers frontier performance at breakthrough prices. V3.1 can switch between 'thinking' and 'non-thinking' modes for optimal speed/quality. Best value in AI!",
+        strengths: ['Best Value', 'Coding', 'Reasoning'],
+        models: ['deepseek-v3.1', 'deepseek-r1'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: 'sk-...' }
+        ]
+      },
+      mistral: {
+        icon: '🌬️',
+        name: 'Mistral',
+        specialist: 'Mira',
+        greeting: "Bonjour! Mistral brings European AI excellence. Mathstral 7B is specialized for mathematical problems, and Mistral Medium 3 offers frontier performance at reduced costs.",
+        strengths: ['Math Expert', 'Multilingual', 'Cost-Effective'],
+        models: ['mistral-medium-3', 'mathstral-7b', 'mistral-large'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: '' }
+        ]
+      },
+      cohere: {
+        icon: '📚',
+        name: 'Cohere',
+        specialist: 'Coral',
+        greeting: "Welcome to Cohere! I specialize in RAG - Retrieval Augmented Generation. Command R+ with 256K context is perfect for enterprise search and knowledge management systems.",
+        strengths: ['RAG Expert', '256K Context', 'Enterprise'],
+        models: ['command-r', 'command-r+', 'command-a'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: '' }
+        ]
+      },
+      perplexity: {
+        icon: '🔍',
+        name: 'Perplexity',
+        specialist: 'Percy',
+        greeting: "Hey! Need real-time information? My pplx-API combines AI with live web search. Perfect for research tools that need factual, up-to-date information. No hallucinations!",
+        strengths: ['Live Search', 'Fact-Checking', 'Research'],
+        models: ['pplx-sonar', 'pplx-online'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: '' }
+        ]
+      },
+      budget: {
+        icon: '💰',
+        name: 'Budget Office',
+        specialist: 'Penny',
+        greeting: "Welcome! I'm Penny, your budget guardian. Let's make sure you never get an unexpected AI bill. What daily limit would you like to set?",
+        strengths: ['Cost Control', 'Alerts', 'Analytics'],
+        fields: [
+          { name: 'dailyLimit', label: 'Daily Budget ($)', type: 'number', placeholder: '10.00' },
+          { name: 'alertAt', label: 'Alert at (%)', type: 'number', placeholder: '80' }
+        ]
+      },
+      cache: {
+        icon: '📦',
+        name: 'Cache Office',
+        specialist: 'Memo',
+        greeting: "Hi! I'm all about saving you money by remembering what we've already done. Enable caching to reduce costs by up to 40%!",
+        strengths: ['Cost Savings', 'Faster Responses', 'Semantic Matching'],
+        fields: [
+          { name: 'enabled', label: 'Enable Caching', type: 'checkbox' },
+          { name: 'semantic', label: 'Semantic Matching', type: 'checkbox' },
+          { name: 'ttl', label: 'Cache Duration (hours)', type: 'number', placeholder: '24' }
+        ]
+      },
+      voice: {
+        icon: '🎤',
+        name: 'Voice Office',
+        specialist: 'Echo',
+        greeting: "Hello! I'll help you set up voice interactions. Your users can speak to AI and hear responses aloud. Works great for accessibility and hands-free use!",
+        strengths: ['Speech Recognition', 'Text-to-Speech', 'Accessibility'],
+        fields: [
+          { name: 'enabled', label: 'Enable Voice', type: 'checkbox' },
+          { name: 'language', label: 'Language', type: 'text', placeholder: 'en-US' }
+        ]
+      },
+      alerts: {
+        icon: '🔔',
+        name: 'Alerts Office',
+        specialist: 'Bell',
+        greeting: "Welcome! I'll make sure you're notified when important things happen - like approaching your budget limit or when a provider goes down.",
+        strengths: ['Slack', 'Discord', 'Custom Webhooks'],
+        fields: [
+          { name: 'slack', label: 'Slack Webhook URL', type: 'text', placeholder: 'https://hooks.slack.com/...' },
+          { name: 'discord', label: 'Discord Webhook URL', type: 'text', placeholder: 'https://discord.com/api/webhooks/...' }
+        ]
+      },
+      ollama: {
+        icon: '🦙',
+        name: 'Ollama',
+        specialist: 'Sage',
+        greeting: "Welcome! I help you run AI locally - completely free, private, and always available even offline. Perfect as a fallback when your budget runs out.",
+        strengths: ['FREE', 'Private', 'Offline'],
+        models: ['llama3', 'codellama', 'mistral'],
+        fields: [
+          { name: 'enabled', label: 'Enable Ollama Fallback', type: 'checkbox' },
+          { name: 'url', label: 'Ollama URL', type: 'text', placeholder: 'http://localhost:11434' }
+        ]
+      },
+      lmstudio: {
+        icon: '🖥️',
+        name: 'LM Studio',
+        specialist: 'Mac',
+        greeting: "Hey! Got a Mac? LM Studio uses Metal acceleration for blazing fast local AI. Download models with a beautiful GUI and run them privately.",
+        strengths: ['macOS Optimized', 'Metal GPU', 'Easy GUI'],
+        fields: [
+          { name: 'enabled', label: 'Enable LM Studio', type: 'checkbox' },
+          { name: 'url', label: 'LM Studio URL', type: 'text', placeholder: 'http://localhost:1234' }
+        ]
+      },
+      webllm: {
+        icon: '🌐',
+        name: 'WebLLM',
+        specialist: 'Web',
+        greeting: "Hi! I run AI entirely in your browser using WebGPU - no server needed! Great for demos, prototypes, and edge computing scenarios.",
+        strengths: ['Browser Only', 'No Server', 'WebGPU'],
+        fields: [
+          { name: 'enabled', label: 'Enable WebLLM', type: 'checkbox' }
+        ]
+      },
+      together: {
+        icon: '🤝',
+        name: 'Together AI',
+        specialist: 'Unity',
+        greeting: "Welcome! Together AI gives you access to 200+ open-source models through one API. Great for experimentation and finding the perfect model for your use case.",
+        strengths: ['200+ Models', 'Open Source', 'Flexible'],
+        fields: [
+          { name: 'apiKey', label: 'API Key', type: 'password', placeholder: '' }
+        ]
+      }
+    };
+
+    // State
+    const configured = new Set(['budget']);
+
+    function openOffice(officeId) {
+      const office = offices[officeId];
+      if (!office) return;
+
+      document.getElementById('modal-icon').textContent = office.icon;
+      document.getElementById('modal-title').textContent = office.name;
+      document.getElementById('modal-specialist').textContent = `Specialist: ${office.specialist}`;
+
+      let html = `
+        <div class="chat-bubble">
+          <div class="specialist-name">${office.specialist}</div>
+          <p>${office.greeting}</p>
+        </div>
+      `;
+
+      if (office.strengths) {
+        html += `<div class="strength-tags">`;
+        office.strengths.forEach((s, i) => {
+          html += `<span class="tag ${i === 0 ? 'highlight' : ''}">${s}</span>`;
+        });
+        html += `</div>`;
+      }
+
+      if (office.models) {
+        html += `<p style="margin-top: 1rem; color: rgba(255,255,255,0.7);">Available models: ${office.models.join(', ')}</p>`;
+      }
+
+      if (office.fields) {
+        html += `<form style="margin-top: 1.5rem;">`;
+        office.fields.forEach(field => {
+          if (field.type === 'checkbox') {
+            html += `
+              <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="checkbox" id="${field.name}" name="${field.name}">
+                <label for="${field.name}" style="margin: 0;">${field.label}</label>
+              </div>
+            `;
+          } else {
+            html += `
+              <div class="form-group">
+                <label for="${field.name}">${field.label}</label>
+                <input type="${field.type}" id="${field.name}" name="${field.name}" placeholder="${field.placeholder || ''}">
+              </div>
+            `;
+          }
+        });
+        html += `
+          <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="saveOffice('${officeId}')">
+            Save & Return to Courtyard
+          </button>
+        </form>`;
+      }
+
+      document.getElementById('modal-body').innerHTML = html;
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    function saveOffice(officeId) {
+      configured.add(officeId);
+      document.querySelector(`[data-office="${officeId}"]`)?.classList.add('configured');
+      closeModal();
+      updateStatus();
+    }
+
+    function updateStatus() {
+      // Update status bar with configured count
+    }
+
+    function quickSetup(type) {
+      const recommendations = {
+        chatbot: ['openai', 'budget', 'ollama'],
+        coding: ['anthropic', 'budget', 'ollama'],
+        research: ['perplexity', 'cohere', 'budget']
+      };
+
+      const offices = recommendations[type] || [];
+      alert(`Quick Setup for ${type}:\nI recommend visiting: ${offices.join(' → ')}\n\nLet's start with the first office!`);
+      if (offices[0]) openOffice(offices[0]);
+    }
+
+    function closeWelcome() {
+      document.querySelector('.welcome-desk').style.display = 'none';
+    }
+
+    function launchGateway() {
+      if (configured.size < 2) {
+        alert('Please configure at least one provider and set your budget before launching.');
+        return;
+      }
+      alert('Gateway launched! Your configuration:\n' + Array.from(configured).join(', '));
+    }
+
+    // Close modal on overlay click
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-overlay')) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
